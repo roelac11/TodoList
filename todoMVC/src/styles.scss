@@ -1,6 +1,23 @@
-.done {
-  color: grey;
-  text-decoration: line-through;
+div {
+  width: 570px;
+}
+
+.font button,
+input,
+li,
+span {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 15pt;
+}
+
+ul {
+  list-style: none;
+}
+
+ul li span {
+  display: inline-block;
+  min-width: 480px;
+  width: 480px;
 }
 
 .undone {
@@ -8,7 +25,12 @@
   text-decoration: none;
 }
 
-.font {
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
-  font-size: 15pt;
+.done {
+  color: lightgrey;
+  text-decoration: line-through;
+
+}
+
+button {
+  margin: 2px;
 }

@@ -13,8 +13,8 @@ enum Filter {
 })
 export class ListComponent implements OnInit {
   todoList: ListElement[] = [];
-  showList: ListElement[] = [];
-  next_id = 0;
+  filteredList: ListElement[] = [];
+  nextId = 0;
   currentFilter: Filter = Filter.ALL;
   nrOfActive = 0;
   setCompleted = true;
@@ -28,8 +28,8 @@ export class ListComponent implements OnInit {
       return;
     }
 
-    const newElement = { id: this.next_id, title: input.value, completed: false };
-    this.next_id++;
+    const newElement = { id: this.nextId, title: input.value, completed: false };
+    this.nextId++;
     this.todoList.push(newElement);
     input.value = '';
     this.filter(this.currentFilter);
@@ -38,17 +38,19 @@ export class ListComponent implements OnInit {
 
   check(item) {
     item.completed = !item.completed;
-    this.nrOfActive = item.completed ? this.nrOfActive - 1 : this.nrOfActive + 1;
+    item.completed ? this.nrOfActive-- : this.nrOfActive++;
     this.filter(this.currentFilter);
   }
 
   remove(item) {
     for (let i = 0; i < this.todoList.length; i++) {
       if (this.todoList[i].id === item.id) {
+        if (!this.todoList[i].completed) {
+          this.nrOfActive--;
+        }
         this.todoList.splice(i, 1);
       }
     }
-    this.nrOfActive--;
     this.filter(this.currentFilter);
   }
 
@@ -56,13 +58,12 @@ export class ListComponent implements OnInit {
     this.currentFilter = filter;
 
     if (filter === Filter.ALL) {
-      this.showList = this.todoList;
+      this.filteredList = this.todoList;
     } else {
-      const showCompleted: boolean = filter === Filter.ACTIVE ? false : true;
-      this.showList = [];
+      this.filteredList = [];
       for (const item of this.todoList) {
-        if (item.completed === showCompleted) {
-          this.showList.push(item);
+        if (item.completed === (filter === Filter.COMPLETED)) {
+          this.filteredList.push(item);
         }
       }
     }
@@ -88,7 +89,7 @@ export class ListComponent implements OnInit {
     for (const item of this.todoList) {
       if (item.completed != this.setCompleted) {
         item.completed = this.setCompleted;
-        this.nrOfActive = this.setCompleted ? this.nrOfActive - 1 : this.nrOfActive + 1;
+        this.setCompleted ? this.nrOfActive-- : this.nrOfActive++;
       }
     }
     this.setCompleted = !this.setCompleted;
