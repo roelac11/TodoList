@@ -1,0 +1,18 @@
+<div class='font'>
+  <button (click)="checkAll()">V</button>
+  <input (keydown.enter)="addAndReset($event.target)"
+         placeholder="What needs to be done?"
+         size=40 />
+  <ul>
+    <li *ngFor='let item of showList'
+        [className]="item.completed ? 'done':'undone'">
+      <span (click)="check(item, $event.target.parentNode)"> {{ item.title }}</span>
+      <button (click)="remove(item)">x</button>
+    </li>
+  </ul>
+  {{nrOfActive}} items left
+  <button (click)="filter(0)">All</button>
+  <button (click)="filter(1)">Active</button>
+  <button (click)="filter(2)">Completed</button>
+  <button (click)="clearCompleted()">Clear completed</button>
+</div>

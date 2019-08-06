@@ -1,16 +1,1 @@
-<input (keydown.enter)="addAndReset($event.target)"
-       placeholder="What needs to be done?"
-       size=30 />
-<ul>
-  <li *ngFor='let item of todoList'>
-    <span (click)="check(item)"> {{ item.title }}</span>
-    <button (click)="remove(item)">x</button>
-  </li>
-</ul>
-<h3 *ngIf="doneList.length > 0">done:</h3>
-<ul>
-  <li *ngFor='let item of doneList'>
-    <span (click)="check(item)"> {{ item.title }}</span>
-    <button (click)="remove(item)">x</button>
-  </li>
-</ul>
+<app-list></app-list>
